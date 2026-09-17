@@ -6,10 +6,16 @@ import { FaPlus } from "react-icons/fa";
 import { MdOutlineEdit } from "react-icons/md";
 import { RiDeleteBin5Line } from "react-icons/ri";
 function App() {
-  const [mode, setmode] = useState(localStorage.getItem("mode")?localStorage.getItem("mode"):"lightmode" );
+  const [userdata, setuserdata] = useState(JSON.parse(localStorage.getItem("data"))?JSON.parse(localStorage.getItem("data")):[],);
+  localStorage.setItem("data", JSON.stringify(userdata))
   
+  
+  const [mode, setmode] = useState(localStorage.getItem("mode") ? localStorage.getItem("mode") : "lightmode");
+  localStorage.setItem("mode", mode)
 
-  // localStorage.setItem("mode", mode)
+  const [modal, setmodal] = useState(false)
+
+  const [name, setname] = useState("")
   return (
     <div className={mode == "darkmode" ? "App dark" : "App"}>
       <header>
@@ -45,53 +51,81 @@ function App() {
             <div className="hero_max">
               <div className="max_btn">
                 <button onClick={() => {
-                  if (modal == "noactive") {
-                    setmodal("active")
-                  }
-                  else {
-                    setmodal == ("noactive")
-                  }
+                  setmodal(true)
                 }}><FaPlus /></button>
               </div>
               <div className="hero_mini">
-                <div className="mini_cards">
-                  <div className="mini_left">
-                    <div className="submit">
+                {
+                  userdata.map((item, i) => {
+                    return <div className="mini_cards" key={i}>
+                      <div className="mini_left">
+                        <div className="submit">
 
+                        </div>
+                        <div className="mini_info">
+                          <h1>{item.name}</h1>
+                        </div>
+                      </div>
+                      <div className="mini_right">
+                        <div className="mini_icon">
+                          <button><MdOutlineEdit /></button>
+                        </div>
+                        <div className="mini_icon" >
+                          <button onClick={() =>{
+                            const newdata = userdata.filter((info)=>{
+                              return info.id !== item.id;
+                            })
+                            setuserdata(newdata)
+                          }}><RiDeleteBin5Line /></button>
+                        </div>
+                      </div>
                     </div>
-                    <div className="mini_info">
-                      <h1>Note #1</h1>
-                    </div>
-                  </div>
-                  <div className="mini_right">
-                    <div className="mini_icon">
-                      <MdOutlineEdit />
-                    </div>
-                    <div className="mini_icon">
-                      <RiDeleteBin5Line />
-                    </div>
-                  </div>
-                </div>
-                <hr />
+
+                  })
+
+                }
+
               </div>
             </div>
           </div>
         </div>
+        {
+          modal && <div className="modal" >
+            <h1>New Note</h1>
+            <form action="" onSubmit={(e) => {
+              e.preventDefault()
 
-        <div className="modal" >
-          <h1>New Note</h1>
-          <form action="">
-            <input type="text" placeholder='Input your note...' />
-          </form>
-          <div className="modal_btn">
-            <div className="cancel">
-              <button>Cancel</button>
-            </div>
-            <div className="apply">
-              <button>Apply</button>
+            }}>
+              <input
+                value={name}
+                type="text" onInput={(e) => {
+                  setname(e.target.value)
+                }}
+                placeholder='Input your note...'
+              />
+            </form>
+            <div className="modal_btn">
+              <div className="cancel">
+                <button onClick={() => {
+                  setmodal(false)
+                }}>Cancel</button>
+              </div>
+              <div className="apply" typeof='submit'>
+                <button type='button' onClick={() => {
+                  if (!name.trim()) return;
+                  const obj = {
+                    id: Math.floor(Math.random() * 9999),
+                    name: name,
+                  }
+                  setuserdata([...userdata, obj])
+                  setname("")
+                  setmodal(false)
+                }}>Apply</button>
+              </div>
             </div>
           </div>
-        </div>
+        }
+
 
       </header>
     </div>

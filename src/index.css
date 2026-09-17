@@ -183,6 +183,7 @@ nav .container .nav_bottom .mode_btn button svg {
 }
 
 .hero .container .hero_max .hero_mini .mini_cards .mini_left .mini_info h1 {
+  text-transform: capitalize;
   color: rgba(37, 37, 37, 1);
   font-size: 20px;
   font-weight: 500;
@@ -200,31 +201,33 @@ nav .container .nav_bottom .mode_btn button svg {
   transition: all .3s ease-in-out;
 }
 
-.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon {
+.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon button {
   width: 18px;
   height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: transparent;
+  border: none;
 }
 
-.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon svg {
+.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon button svg {
   font-size: 16px;
   cursor: pointer;
+  color: rgba(205, 205, 205, 1);
 }
 
-.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon:hover {
+.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon button svg:hover {
   color: #6C63FF;
 }
 
-.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon:nth-child(2):hover {
+.hero .container .hero_max .hero_mini .mini_cards .mini_right .mini_icon:nth-child(2) button svg:hover {
   color: rgba(229, 0, 0, 1);
 }
 
 
 
 header .modal {
-  display: none;
   width: 500px;
   height: 290px;
   background-color: #F7F7F7FF;
@@ -235,9 +238,7 @@ header .modal {
   right: 518px;
 }
 
-header .modal.open {
-  display: block;
-}
+
 
 header .modal h1 {
   color: rgba(37, 37, 37, 1);
@@ -288,6 +289,7 @@ header .modal .modal_btn .cancel button {
   color: rgba(108, 99, 255, 1);
   text-transform: uppercase;
   background-color: transparent;
+  cursor: pointer;
 }
 
 header .modal .modal_btn .apply {
@@ -304,6 +306,7 @@ header .modal .modal_btn .apply button {
   background-color: rgba(108, 99, 255, 1);
   border: none;
   color: white;
+  cursor: pointer;
 }
 
 /* dark mode */
@@ -317,14 +320,17 @@ header .modal .modal_btn .apply button {
 .App.dark .hero .container .hero_max .hero_mini .mini_cards .mini_left .mini_info h1 {
   color: white;
 }
-.App.dark nav .container .nav_bottom form input{
+
+.App.dark nav .container .nav_bottom form input {
   border: 1px solid rgba(247, 247, 247, 1);
   background-color: transparent;
   color: white;
 }
-.App.dark nav .container .nav_bottom form input::placeholder{
-color: rgba(102, 102, 102, 1);
+
+.App.dark nav .container .nav_bottom form input::placeholder {
+  color: rgba(102, 102, 102, 1);
 }
-.App.dark nav .container .nav_bottom form svg{
+
+.App.dark nav .container .nav_bottom form svg {
   color: rgba(247, 247, 247, 1);
 }
